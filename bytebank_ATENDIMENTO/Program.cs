@@ -1,7 +1,10 @@
-﻿Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
+﻿using System;
+
+Console.WriteLine("Boas Vindas ao ByteBank, Atendimento.");
 
 //TestaBuscarPalavra();
-TestaMediana(amostra);
+//TestaMediana(amostra);
+TestaArrayDeContasCorrentes();
 
 void TestaArrayInt ()
 {
@@ -72,4 +75,16 @@ void TestaMediana(Array array)
         numerosOrdenados[meio] : numerosOrdenados[meio] + (numerosOrdenados[meio - 1]) / 2;
 
     Console.WriteLine($"Com base na amostra a mediana = {mediana}");
+}
+
+void TestaArrayDeContasCorrentes()
+{
+    ListaDeContasCorrentes listaDeContas = new ListaDeContasCorrentes[]
+    {
+        new ContaCorrente(874, "5679787-A"),
+        new ContaCorrente(874, "4456668-B"),
+        new ContaCorrente(874, "7781438-C")
+    };
+
+    
 }
