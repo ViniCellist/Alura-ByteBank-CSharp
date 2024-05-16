@@ -104,9 +104,9 @@ void TestaArrayDeContasCorrentes()
 #endregion
 List<ContaCorrente> _listaDeContas = new List<ContaCorrente>()
 {
-    new ContaCorrente(95, "123456-x") {Saldo = 100},
-    new ContaCorrente(95, "159753-x") {Saldo = 200},
-    new ContaCorrente(94, "987654-x") {Saldo = 60}
+    new ContaCorrente(95, "123456-x") {Saldo = 100, Titular = new Cliente{Cpf = "111111", Nome = "Henrique"}},
+    new ContaCorrente(95, "159753-x") {Saldo = 200, Titular = new Cliente{Cpf = "222222", Nome = "Pedro"},
+    new ContaCorrente(94, "987654-x") {Saldo = 60, Titular = new Cliente{Cpf = "333333", Nome = "Marisa"}}
 };
 
 AtendimentoCliente();
@@ -145,9 +145,17 @@ void AtendimentoCliente()
                     CadastrarConta();
                     break;
                 case '2':
-                    ListarConta();
+                    ListarContas();
                     break;
-
+                case '3':
+                    RemoverContas();
+                    break;
+                case '4';
+                    OrdenarContas();
+                    break;
+                case '5':
+                    PesquisarContas();
+                    break;
                 default:
                     Console.WriteLine("Opção não implentada.");
                     break;
@@ -187,7 +195,6 @@ void ListarContas()
         Console.ReadKey();
     }
 }
-
 void CadastrarConta()
 {
     Console.Clear();
@@ -221,56 +228,106 @@ void CadastrarConta()
     Console.WriteLine("... Conta cadastrada com sucesso! ...");
     Console.ReadKey();
 }
+void RemoverContas()
+{
+    Console.Clear();
+    Console.WriteLine("======================================");
+    Console.WriteLine("=========   REMOVER CONTAS   =========");
+    Console.WriteLine("======================================");
+    Console.WriteLine("\n");
+    Console.Write("Informe o número da Conta: ");
+    string numeroConta = Console.ReadLine();
+    ContaCorrente conta = null;
+    foreach (var item in _listaDeContas)
+    {
+        if (item.Conta.Equals(numeroConta)
+            {
+            conta = item;
+        }
+    }
+    if ( conta != null) 
+    {
+        _listaDeContas.Remove(conta);
+        Console.WriteLine("... Conta removida da lista! ...");
+    }
+    else
+    {
+        Console.WriteLine("... Conta para remoção não encontrada ...");
+    }
+    Console.ReadKey();
+}
+void OrdenarContas()
+{
+    _listaDeContas.Sort();
+    Console.WriteLine("... Lista de contas ordenada ...");
+    Console.ReadKey();
+}
+void PesquisarContas()
+{
+    Console.Clear();
+    Console.WriteLine("======================================");
+    Console.WriteLine("========   PESQUISAR CONTAS   ========");
+    Console.WriteLine("======================================");
+    Console.WriteLine("\n");
+    Console.Write("Deseja pesquisar por (1) NUMERO DA CONTA ou (2) CPF TITULAR?");
+    switch (int.Parse(Console.ReadLine()))
+    {
+        case 1:
+            {
+                Console.WriteLine("Informe o número da Conta ");
+                string _numeroConta = Console.ReadLine();
+                ContaCorrente consultaConta = ConsultaPorNumeroConta(_numeroConta);
+                Console.WriteLine(consultaConta.ToString());
+                Console.ReadKey();
+                break;
+            }
+        case 2: 
+            {
+                Console.WriteLine("Informe o CPF do titular: ");
+                string _cpf = Console.ReadLine();
+                ContaCorrente consultaCpf = ConsultaPorCPFTiular(_cpf);
+                Console.WriteLine(consultaCpf.ToString());
+                Console.ReadKey();
+                break;
+            }
+        default:
+            Console.WriteLine("Opção não implementada");
+            break;
+            
+    }
+}
+ContaCorrente ConsultaPorCPFTiular(string? cpf)
+{
+    ContaCorrente conta = null;
+    for (int i = 0; i < _listaDeContas.Count; i++)
+    {
+        if (_listaDeContas[i].Titular.Cpf.Equals(cpf))
+        {
+            conta = _listaDeContas[i];
+        }
 
-Generica<int> teste1 = new Generica<int>();
-teste1.MostrarMensagem(10);
+        return conta;
+    }
+}
+ContaCorrente ConsultaPorNumeroConta(string? numeroConta)
+{
+    ContaCorrente conta = null;
+    for (int i = 0; i < _listaDeContas.Count; i++)
+    {
+        if (_listaDeContas[i].Conta.Equals(numeroConta))
+        {
+            conta = _listaDeContas[i];
+        }
+    }
 
-Generica<string> teste2 = new Generica<string>();
-teste2.MostrarMensagem("Olá mundo!");
-
-#regio Exemplo de uso do List
-//public class Generica<T>
-//{
-//    public void MostrarMensagem(T t)
-//    {
-//        Console.WriteLine($"Exibindo {t}");
-//    }
-//}
-
-//List<ContaCorrente> _listadeContas2 = new List<ContaCorrente>()
-//{
-//    new ContaCorrente(874,"5679797-A"),
-//    new ContaCorrente(874, "4456668-B"),
-//    new ContaCorrente(874, "7781438-C")
-//};
-
-//List<ContaCorrente> _listaDeContas3 = new List<ContaCorrente>()
-//{
-//    new ContaCorrente(951, "5679787-E"),
-//    new ContaCorrente(321, "4456668-F"),
-//    new ContaCorrente(719, "7781438-G")
-//};
-
-//_listadeContas2.AddRange(_listaDeContas3);
-//_listadeContas2.Reverse();
-
-//Console.WriteLine("\n\n");
-
-//var range = _listadeContas3.GetRange(0, 1);
-//for (int i = 0; i < _listadeContas2.Count; i++)
-//{
-//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
-//}
-
-//Console.WriteLine("\n\n");
-
-//_listaDeContas3.Clear();
-//for (int i = 0; i < _listaDeContas3.Count; i++)
-//{
-//    Console.WriteLine($"Indice[{i}] = Conta [{range[i].Conta}]");
-//}
-#endregion
-
-
-
-
+    return conta;
+}
+public override string ToString()
+{
+    return $" === DADOS DA CONTA ===\n" +
+           $"Número da Conta : {this.Conta} \n" +
+           $"Saldo da Conta : {this.Saldo} \n" +
+           $"Titular da Conta : {this.Titular.Nome} \n" +
+           $"CPF do Titular : {this.Titular.Cpf} \n" +
+           $"Profissão do Titular: {this.Titular.Profissao}";
+}

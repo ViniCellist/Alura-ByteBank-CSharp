@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bytebank.Modelos.Conta;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,6 @@ namespace bytebank_ATENDIMENTO.bytebank.Util
     {
         private ContaCorrente[] _itens = null;
         private int _proximaPosicao = 0;
-
         public ListaDeContasCorrentes(int tamanhoInicial = 5)
         {
             _itens = new ContaCorrente[tamanhoInicial];

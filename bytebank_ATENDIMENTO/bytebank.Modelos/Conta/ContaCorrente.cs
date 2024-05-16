@@ -1,6 +1,6 @@
 ﻿namespace bytebank.Modelos.Conta
 {
-	public class ContaCorrente
+	public class ContaCorrente:IComparable<ContaCorrente>
 	{
 		private int _numero_agencia;
 
@@ -94,6 +94,18 @@
 			saldo -= valor;
 			destino.saldo += valor;
 			return true;
+		}
+
+		public int CompareTo(ContaCorrente? other)
+		{
+			if (other == null)
+			{
+				return 1;
+			}
+			else
+			{
+				return this.Numero_agencia.CompareTo(other.Numero_agencia);
+			}
 		}
 
 		public ContaCorrente(int numero_agencia, string conta)
